@@ -195,12 +195,41 @@ example: board.get(3) will return the 3rd row of the instance board (assuming th
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var board = this.rows();
+      var count = 0;
+      var i;
+      var j;
+      if (minorDiagonalColumnIndexAtFirstRow > board.length - 1) {
+        i = minorDiagonalColumnIndexAtFirstRow - (board.length - 1);
+        j = board.length - 1;
+      } else {
+        i = 0;
+        j = minorDiagonalColumnIndexAtFirstRow;
+      }
+      for (j; i < board.length; i++, j--) {
+        console.log('i, j', i, j);      
+        if (board[i][j] === 1) {
+          count++;
+        }
+        if (count > 1) {
+          return true;
+        }
+      }
+      return false; 
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      var board = this.rows();
+      var isTrue;
+    
+      for (let i = (board.length - 1) * 2; i > 0; i--) {
+        isTrue = this.hasMinorDiagonalConflictAt(i);
+        if (isTrue) {
+          return true;
+        }
+      } 
+      return false; 
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
