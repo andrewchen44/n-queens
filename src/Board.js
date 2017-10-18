@@ -83,47 +83,30 @@ example: board.get(3) will return the 3rd row of the instance board (assuming th
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      //checks to see if row at given index has a conflict
       var row = this.get(rowIndex);
       var counter = 0;
-      row.forEach(function(value) {
-        if (value === 1) {
+
+      for (var i = 0; i < row.length; i++) {
+        if (row[i] === 1) {
           counter++;
         }
-        if (counter > 1) {
+        if (counter === 2) {
           return true;
         }
-      });
-      //use the .get function at the index to get the row, and assign it to a variable
-      //go through each value in the row to see if there are more than 1 1s,
-
-      //returns true if it does
-      //returns false if no conflix
-
-      return false; // fixme
+      }
+      return false; 
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-
-      for (var key in this.attributes) {
-        console.log(this.attributes[key]);
-        //this.attributes[key].hasRowConflicAt(key);
+      var board = this.rows();
+      var isTrue;
+      for (let i = 0; i < board.length; i++) {
+        isTrue = this.hasRowConflictAt(i);
+        if (isTrue) {
+          return true;
+        }
       }
-    
-      // for (var key in this) {
-      //   console.log(this.key);
-      //   this.key.hasRowConflictAt();
-      // }   
-      // for
-      // this.forEach(function(value){
-      // 		if(value === 1){
-      // 			counter++
-      // 		}
-      // 		if(counter > 1){
-      // 			return true;
-      // 		}
-      // });
       return false; // fixme
     },
 
