@@ -151,12 +151,26 @@ example: board.get(3) will return the 3rd row of the instance board (assuming th
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var board = this.rows();
+      var count;
+      
+      for (let i = 0; i < board.length; i++) {
+        if (board[i][majorDiagonalColumnIndexAtFirstRow + i] === 1) {
+          count++;
+        }
+        if (count > 0) {
+          return true;
+        }
+      }
+      
+      
+      
+      return false; 
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      return false; 
     },
 
 
