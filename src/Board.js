@@ -117,7 +117,19 @@ example: board.get(3) will return the 3rd row of the instance board (assuming th
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      //generate the board and assign a variable
+      var board = this.rows();
+      //create a counter
+      var counter = 0;
+      for (let i = 0; i < board.length; i++) {
+        if (board[i][colIndex] === 1) {
+          count++;
+        }
+        if (count > 1) {
+          return true;
+        }
+      }
+      return false; 
     },
 
     // test if any columns on this board contain conflicts
