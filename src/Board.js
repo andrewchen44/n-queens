@@ -74,16 +74,50 @@
     =                 TODO: fill in these Helper Functions                    =
     =========================================================================*/
 
+
+/*Rather than setting or getting object properties directly with plain JavaScript, Backbone provides the get and set methods. Play with the getters and setters that Backbone provides
+example: board.get(3) will return the 3rd row of the instance board (assuming that instance exists)*/
+
     // ROWS - run from left to right
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+    	//checks to see if row at given index has a conflict
+    	var row = this.get(rowIndex);
+    	var counter = 0;
+    	row.forEach(function(value){
+    		if(value === 1){
+    			counter++;
+    		}
+    		if(counter > 1){
+    			return true;
+    		}
+    	});
+    	//use the .get function at the index to get the row, and assign it to a variable
+    	//go through each value in the row to see if there are more than 1 1s,
+
+    	//returns true if it does
+    	//returns false if no conflix
+
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+    	for(var i = 0; i < this.length; i++){
+    		this[i].hasRowConflictAt(i);
+    		console.log(this[i]);	
+    	};
+    	// for
+    	// this.forEach(function(value){
+    	// 		if(value === 1){
+    	// 			counter++
+    	// 		}
+    	// 		if(counter > 1){
+    	// 			return true;
+    	// 		}
+    	// });
       return false; // fixme
     },
 
