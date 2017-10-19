@@ -207,7 +207,7 @@ example: board.get(3) will return the 3rd row of the instance board (assuming th
         j = minorDiagonalColumnIndexAtFirstRow;
       }
       for (j; i < board.length; i++, j--) {
-        console.log('i, j', i, j);      
+        //console.log('i, j', i, j);      
         if (board[i][j] === 1) {
           count++;
         }
