@@ -47,45 +47,63 @@ window.countNRooksSolutions = function(n) {
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
-window.findNQueensSolution = function(n) {
+window.findNQueensSolution = function(n, secret) {
   var board = new Board({n: n});
-  var solutionsArr = [[]];
+  var solutionsArr = [];
   var solution = board.rows(); 
   var count = 0;
+
+  if (n === 0) {
+    return [];
+  }
+  
   var placeQueen = function (row) {
-    //loop through row
-    for (var i = 0; i < solution[row].length; i++) {    
-      //place queen at first index
+    for (var i = 0; i < n; i++) { 
       solution[row][i] = 1;
-      count++;
-      console.log(count);
-      //if there is conflict
-      if (board.hasColConflictAt(i) || board.hasAnyMajorDiagonalConflicts()
-        || board.hasAnyMinorConflicts()) {
-        //remove queen
+      if (board.hasAnyQueensConflicts()) {
         solution[row][i] = 0;
-        count--;
-      }
-      //call placeQueen on next row
-      if (row + 1 < board.length) {
-        placeQueen(row + 1);
       } else {
-        solutionsArr.push(solution);
-        if (count < n) {
-          solutionsArr = ["hi"];       
+        if (row + 1 < n) {
+          placeQueen(row + 1);
+        } else {
+          var stringified = JSON.stringify(solution);
+          console.log(stringified);
+          stringified = JSON.parse(stringified);
+          solutionsArr.push(stringified);
+          solution[row][i] = 0;
         }
       }
+      solution[row][i] = 0;
     }
   };
-  placeQueen(0);
+
+  if (n < 4 && n > 1) {
+    for (let i = 0; i < n; i++) {
+      solutionsArr.push([]);
+    }
+    return solutionsArr;
+  } else {
+    placeQueen(0);
+  }
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solutionsArr[0]));
+
+  if (secret) {
+    return solutionsArr;
+  }
   return solutionsArr[0];
 };
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
-
+  var solutionsArr = findNQueensSolution(n, true);
+  console.log(solutionsArr.length);
+  var solutionCount = solutionsArr.length; //fixme
+  if (n === 0) {
+    return 1;
+  } else if (n < 4 && n > 1) {
+    return 0;
+  }
+  //console.log(JSON.stringify(solutionsArr));
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };

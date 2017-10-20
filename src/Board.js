@@ -179,7 +179,7 @@ example: board.get(3) will return the 3rd row of the instance board (assuming th
       var board = this.rows();
       var isTrue;
     
-      for (let i = -2; i < board.length - 1; i++) {
+      for (let i = -board.length; i < board.length - 1; i++) {
         isTrue = this.hasMajorDiagonalConflictAt(i);
         if (isTrue) {
           return true;
